@@ -1,0 +1,88 @@
+﻿@using ShoppingMVC.Entidades
+@using ShoppingMVC.Utilities
+@model OrderHeader
+@{
+    string formatDate(DateTime date)
+    {return date.ToShortDateString();
+    }
+}
+<div >
+    <h4>Order Details</h4>
+
+    <dl class="row">
+        <dt class="col-sm-2">
+            <label>Order N°:</label>
+        </dt>
+
+        <dd class="col-sm-4">
+            <input asp-for="OrderHeaderId" class="form-control form-control-sm" readonly />
+        </dd>
+
+        <dd class="col-sm-2">
+            <label>Order Date</label>
+
+        </dd>
+        <dt class="col-sm-4">
+            <input type="text" value="@formatDate(Model.OrderDate)" class="form-control form-control-sm" readonly />
+        </dt>
+
+        <dt class="col-sm-2">
+            <label>Shipping Date</label>
+        </dt>
+        <dd class="col-sm-4">
+            <input type="text" value="@formatDate(Model.ShippingDate)" class="form-control form-control-sm" readonly/>
+        </dd>
+
+    </dl>
+</div>
+
+<div>
+@if(User.IsInRole(WC.Role_Admin))
+{
+    <a asp-area="Admin" asp-asp-controller="ApplicationUser" asp-action="Details" asp-route-itemid="@Model.ApplicationUserId" class="btn btn-success brn-sm">
+        <i class=" bi bi-backspace"></i>&nbsp
+        Back To List
+    </a>
+}
+else
+{
+    <a asp-action="Index" class="btn btn-success btn-sm">
+        <i class="bg-info bi-backspace"></i>&nbsp;
+        Back To List
+    </a>
+}
+
+</div>
+
+ <table class="table table-bordered table-hover mt-3" >
+     <thead>
+         <tr>
+             <th style="width:20%">Description</th>
+             <th style="width:20%">Marca</th>
+             <th style="width:20%">Unit Price</th>
+             <th style="width:20%">Quantity</th>
+             <th style="width:20%">Subtotal</th>
+         </tr>
+     </thead>
+ </table>
+ <tbody>
+     @foreach(var item in Model.OrderDetail)
+     {
+     <tr>
+         <td>@item.Shoe.ShoeName</td>
+         <td>@item.Shoe.Brand</td>
+         <td>@item.Price</td>
+         <td>@item.Quantity</td>
+         <td>@((item.Price* item.Quantity).ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-US")))</td>
+
+     </tr>
+    }
+    <tr>
+        <td class="fw-bold" colspan="5">
+            Total:
+        </td>
+        <td class="text-end fw.bold">
+            @Model.OrderTotal.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))
+        </td>
+    </tr>
+ </tbody>

@@ -1,0 +1,43 @@
+﻿@using ShoppingMVC.Web.ViewModels.Shoe
+@model dynamic
+<form method="get" class="mb-3">
+
+    <div class="d-flex justity-content-between gap-2 mb-2">
+
+        <!-- BUSQUEDA-->
+        <input type="text"
+               name="search"
+               value="@Model.Search"
+               class="form-control"
+               placeholder="Buscar..." />
+
+        @if (Model.ShowBrandFilter)
+        {
+            <select name="brandId" class="form-select">
+
+                <option value="">Todas las marcas</option>
+
+                    @foreach (var item in Model.Brands)
+                    {
+                        <option value="@item.Value"
+                              selected="@(item.Value == Model.BrandId?.ToString())">
+                              @item.Text</option>
+                    }
+            </select>
+        }
+
+
+        <!--BTN BUSCAR-->
+        <button type="submit" class="btn btn-outline-primary ">
+
+            Buscar
+        </button>
+
+        <!--reset-->
+        <a href="@ViewBag.ResetUrl" class="btn btn-outline-secondary">
+            Reset
+        </a>
+    </div>
+
+</form>
+

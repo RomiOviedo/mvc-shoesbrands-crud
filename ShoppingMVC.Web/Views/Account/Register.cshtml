@@ -1,0 +1,41 @@
+﻿@using ShoppingMVC.Web.ViewModels.ApplicationUser
+@model RegisterVm
+<form asp-action="Register" method="post">
+
+
+    <div>
+        <label>Firs Name</label>
+        <input asp-for="FirstName" />
+    </div>
+
+    <div>
+        <label>Last Name</label>
+        <input asp-for="LastName"  />
+    </div>
+
+
+    <div>
+        <label>Phone</label>
+        <input asp-for="Phone" />
+    </div>
+
+    <div>
+        <label>Addres</label>
+        <input asp-for="Addres" />
+    </div>
+
+    <div>
+        <label>Email</label>
+        <input asp-for="Email"  />
+    </div>
+
+
+    <div>
+        <label>Password</label>
+        <input asp-for="Password" type="password" />
+    </div>
+
+
+
+    <button type="submit">Registrarse</button>
+</form>

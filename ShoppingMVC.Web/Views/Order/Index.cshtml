@@ -1,0 +1,25 @@
+﻿<div class="container">
+    @Html.AntiForgeryToken()
+
+    <div calss="row mb-3">
+        <div class="col-6">
+            <h3>Order' List</h3>
+        </div>
+    </div>
+</div>
+<table id="orderTable" class="table table-bordered table-hover" >
+    <thead>
+        <tr>
+            <th style="width: 10%">Order N°: </th>
+            <th style="width:15%">Order Date</th>
+            <th style="width:15%"> Shipping Date</th>
+            <th style="width:10%">Order Total</th>
+            <th style="width:15%">Actions</th>
+        </tr>
+</thead>
+
+</table>
+@section Scripts
+{
+    <script src="~/js/order.js"></script>
+}

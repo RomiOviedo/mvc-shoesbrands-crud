@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ShoppingMVC.Entidades;
@@ -9,6 +10,8 @@ using X.PagedList.Extensions;
 
 namespace ShoppingMVC.Web.Controllers
 {
+    [Authorize] // solo usuarios registrados pueden ingresar
+
     public class ShoeController : Controller
     {
         private readonly IServicioShoe _service;
@@ -21,18 +24,60 @@ namespace ShoppingMVC.Web.Controllers
             _mapper = mapper;
             _brandService = brandService;
         }
-
-        public IActionResult Index(int? page)
+        public IActionResult Index(int? page, string? search, int? brandId)
         {
             int pageNumber = page ?? 1;
             int pageSize = 6;
 
-            var shoes = _service.GetAll(orderBy: o => o.OrderBy(s => s.ShoeName),propertiesNames: "Brand");
-            var shoesVM = _mapper.Map<List<ShoeListVM>>(shoes).ToPagedList(pageNumber, pageSize);
+            ViewBag.ResetUrl = Url.Action("Index");
 
-            return View(shoesVM);
+            ViewBag.Brands = _brandService.GetAll()
+                .Select(b => new SelectListItem  // using Rendering representa una opcion de un select
+                {
+                    Text = b.BrandName,
+                    Value = b.BrandId.ToString()
+
+                });
+
+
+            //var shoes = _service.GetAll(filtro:!string.IsNullOrEmpty(search)
+            //    ? s=>s.ShoeName.Contains(search.ToLower()) || s.Brand.BrandName.Contains(search.ToLower())
+            //    :null,
+            //    orderBy: o => o.OrderBy(s => s.ShoeName), propertiesNames: "Brand"); 
+
+
+            var shoes = _service.GetAll(
+                       filtro: s =>
+                           (string.IsNullOrEmpty(search)
+                               || s.ShoeName.Contains(search)
+                               || s.Brand.BrandName.Contains(search))
+                           &&
+                           (!brandId.HasValue || s.BrandId == brandId),
+                       orderBy: o => o.OrderBy(s => s.ShoeName),
+                       propertiesNames: "Brand"
+                        );
+
+
+           var shoesVM = _mapper.Map<List<ShoeListVM>>(shoes).ToPagedList(pageNumber, pageSize);
+
+            var vm = new ShoeIndexVM()
+            {
+                Shoes= shoesVM,
+                Search=search,
+                BrandId=brandId,
+                Brands= _brandService.GetAll()  
+                .Select(b=> new SelectListItem()
+                {
+                    Text=b.BrandName,
+                    Value=b.BrandId.ToString()
+
+                })
+
+            };
+            return View(vm);
         }
 
+        [Authorize(Roles ="Admin")] // registrados mas rol admin
         public IActionResult Delete(int? id)
         {
             if (id == 0 || id is null)
@@ -52,6 +97,7 @@ namespace ShoppingMVC.Web.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
 
         public IActionResult UpSert(int? id)
         {

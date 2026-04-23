@@ -10,7 +10,8 @@ using ShoppingMVC.Datos;
 
 namespace ShoppingMVC.Datos.Migrations
 {
-    [DbContext(typeof(ShoppingMvcDbContext))]
+    
+        [DbContext(typeof(ShoppingMvcDbContext))]
     [Migration("20260209005145_MigracionInicial")]
     partial class MigracionInicial
     {

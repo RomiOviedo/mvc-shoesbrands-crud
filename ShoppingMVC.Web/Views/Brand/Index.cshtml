@@ -1,68 +1,124 @@
 ﻿@using ShoppingMVC.Web.ViewModels.Brand
 @using X.PagedList
-@model IPagedList<BrandListVM>
+@model BrandIndexVM
 
 @{
     ViewData["Title"] = "Brand List";
 }
-<div class="container">
-    <div class="row mb-3">
-            
-        <!--Primer col -->
-        <div class="col-6">
+@{
+    bool isAdmin = User.IsInRole("Admin");
+}
+<div class="container ">
 
-            <!--titulo-->
-            <h3>Brand List</h3>
+    <!--bloque centrado-->
+
+    <div class="col-md-6 mx-auto">
+
+        <!--titulo : Brand List-->
+        <div class="text-center mb-3">
+            <h3 class="fw-bold">Brand List</h3>
         </div>
-        <!--SEGUNDA COL-->
-        <div class="col-6 text end">
+
+     
 
             <!--BTN NUEVO-->
-            <a asp-controller="Brand" asp-action="UpSert" class="btn btn-primary">
+         @if (isAdmin)
+        {
+            <div class="d-flex justify-content-end mb-3">
+
+                <a asp-controller="Brand" asp-action="UpSert" class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i>
-                New
-                            </a>
-        </div>
-    </div>
+                    New
+               </a>
+            </div>
+         }
+         <partial name="_SearchBar" model="Model"/>
+         
+        @*            Ctrl + K y luego Ctrl + C
+            descomentar (Ctrl+K+U)
+    
+<form method="get" class="mb-3">
+
+            <div class="d-flex justity-content-betwen gap-2 mb-2">
+
+                   <!-- BUSQUEDA-->
+                   <input type="text"
+                       name="search"
+                       value="@Context.Request.Query["search"]"
+                       class="form-control"
+                       placeholder="Buscar..."/>
+                   
+
+                       <!--BTN BUSCAR-->
+                       <button type="submit" class="btn btn-outline-primary ">
+                           Buscar
+                       </button>
+
+                       <!--reset-->
+                       <a asp-action="Index" class="btn btn-outline-secondary">
+                           Reset
+                       </a>
+               </div>
+
+        </form>
+
+ *@   
+
 
 
                 <!--TABLA-->
-    <table class="table table-bordered table-hover">
 
-        <!--ENCABEZADO DE LA TABLA-->
+
+        <table class="table table-bordered table-hover w-100 ">
+
+        <!--ENCABEZADO DE LA TABLA style="min-width:300px;"   style="min-width:35%""  -->
         <thead>
             <tr>
-                <th style="width:45%">Brand</th>
-                <th style="width:35%">Actions</th>
+                    <th class="text-center">Brand</th>
+                @if (isAdmin)
+                {
+                        <th class="text-center">Actions</th>
+
+                }
+
             </tr>
 
         </thead>
 
        <tbody>
             <!--SI HAY MARCAS-->
-            @if (Model.Any())
+            @if (Model.Brands.Any())
                 {
-                    foreach(var item in Model)
+                    foreach(var item in Model.Brands)
                     {
                         <!--se genera una fila para cada una-->
 
                         <tr id="@item.BrandId">  <!--guardo el id, no se muestra-->
                                                     <!--nombre de la brand-->
-                            <td>@item.BrandName</td>
+                            <td class="text-center">@item.BrandName</td>
 
                                    <!--Ancor editar, porque le paso una ruta para la vista upsert de Brand-->
-                            <td>
-                                <a class="btn btn-warning" asp-controller="Brand" asp-action="UpSert" asp-route-id="@item.BrandId">
+                           
+                            @if(isAdmin)
+                            {
+                                <td class="text-center">
+                                    <a class="btn btn-warning btn-center"
+                                       asp-controller="Brand" 
+                                 asp-action="UpSert" 
+                                 asp-route-id="@item.BrandId">
                                     <i class="bi bi-pencil-square"></i>&nbsp;Edit
                                 </a>
-                                                <!--btn borrar con SWEETALERT, porque no necesito una vista-->
 
+                                    <!--btn borrar con SWEETALERT, porque no necesito una vista-->
 
-                                <button class="btn btn-danger" onclick="confirmDelete('@item.BrandId')">
+                                    <button class="btn btn-danger btn-center"
+                                onclick="confirmDelete('@item.BrandId')">
                                     <i class="bi bi-trash-fill"></i>&nbsp; Delete
                                 </button>
-
                             </td>
+                            }
+
+                            
                         </tr>
 
                     }
@@ -78,25 +134,27 @@
 
         </tbody>
      </table>
+    </div>
+</div>
 
      <!--PAGINACION MANUAL-->
 
-     <div class="d-flex justify-content-center">  <!--d-flex= display flex || justify-content-center = contenido centrado horizontalmente -->
+     <div class="mt-4 d-flex justify-content-center">  <!--d-flex= display flex || justify-content-center = contenido centrado horizontalmente -->
 
          <nav aria-label= "Page-navigation">  <!--le dice al navegador = esto es una zona de navegacion-->
              <ul class="pagination">
 
                  <!--boton ANTERIOR-->
 
-                 <li class="page-item @(Model.HasPreviousPage? "":"disabled")">
-                     <a class="page-link" asp-action="Index" asp-route-page="@(Model.PageNumber-1)">Previous</a>
+                 <li class="page-item @(Model.Brands.HasPreviousPage? "":"disabled")">
+                     <a class="page-link" asp-action="Index" asp-route-page="@(Model.Brands.PageNumber-1)">Previous</a>
                  </li>
 
                  <!--NUMEROS DE PAGINAS-->
 
-                 @for(int i=1; i<= Model.PageCount; i++)   // GENERA 1 PAGINA POR CADA NUMERO EXISTENTE
+                 @for(int i=1; i<= Model.Brands.PageCount; i++)   // GENERA 1 PAGINA POR CADA NUMERO EXISTENTE
                 {
-                    <li class=" page-item @(Model.PageNumber ==i ? "active":"")">  <!--RESALTA EL NRO DE LA PAG ACTUAL-->
+                    <li class=" page-item @(Model.Brands.PageNumber ==i ? "active":"")">  <!--RESALTA EL NRO DE LA PAG ACTUAL-->
                         <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
                     </li>
                 }
@@ -104,8 +162,8 @@
                 <!--BOTON NEXT-->
 
                 <!--genera un item de la lista q va a estar habilitado o deshabilitado-->
-                <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
-                    <a class="page-link " asp-action="Index" asp-route-page="@(Model.PageNumber +1 )"> NEXT</a>
+                <li class="page-item @(Model.Brands.HasNextPage ? "" : "disabled")">
+                    <a class="page-link " asp-action="Index" asp-route-page="@(Model.Brands.PageNumber +1 )"> Next</a>
 
                 </li> 
                 

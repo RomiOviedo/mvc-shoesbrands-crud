@@ -1,11 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ShoppingMVC.Datos;
 using ShoppingMVC.Datos.Interfaces;
 using ShoppingMVC.Datos.Repositorios;
+using ShoppingMVC.Entidades;
 using ShoppingMVC.Servicios.Interfaces;
 using ShoppingMVC.Servicios.Servicios;
+using ShoppingMVC.Utilities;
 
 namespace ShoppingMVC.IoC       // Inversion de Control
 {
@@ -27,6 +30,19 @@ namespace ShoppingMVC.IoC       // Inversion de Control
 
             servicios.AddScoped<IUnitOfWork, UnitOfWork>();
 
+            servicios.AddScoped<IRepositorioApplicationUser, RepositorioApplicationUser>();
+            servicios.AddScoped<IServicioApplicationUser, ServicioAplicationUser>();
+
+            servicios.AddScoped<IRepositorioShoppingCart, RepositorioShoppingCart>();
+            servicios.AddScoped<IServicioShoppingCart, ServicioShoppingCart>();
+
+            servicios.AddScoped<IRepositorioOrderDetail, RepositorioOrderDetail>();
+            servicios.AddScoped<IServicioOrderDetail, ServicioOrderDetail>();
+
+
+
+
+
 
             servicios.AddDbContext<ShoppingMvcDbContext>(options =>
             {
@@ -34,14 +50,9 @@ namespace ShoppingMVC.IoC       // Inversion de Control
                 (configuration.GetConnectionString("MyConnection"));
             });
 
+            servicios.AddScoped<IEmailSender, EmailSender>();
+
         }
-
-
-
-
-
-
-
 
 
     }

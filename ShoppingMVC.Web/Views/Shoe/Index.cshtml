@@ -1,71 +1,94 @@
 ﻿@using ShoppingMVC.Web.ViewModels.Shoe
 @using X.PagedList
-@model IPagedList<ShoeListVM>
+@model ShoeIndexVM
 
 @{
     ViewData["Title"] = "Shoe List";
 }
+@{
+    bool isAdmin = User.IsInRole("Admin");
+}
+
 <div class="container">
     <div class="row mb-3">
 
         <!--Primer col -->
-        <div class="col-6">
+        <div class="col-md-6 mx-auto">
 
             <!--titulo-->
-            <h3>Shoe List</h3>
-        </div>
-        <!--SEGUNDA COL-->
-        <div class="col-4 text end">
+            <div class="text-center mb-3">
 
-            <!--BTN NUEVO-->
-            <a asp-controller="Shoe" asp-action="UpSert" class="btn btn-primary">
-                <i class="bi bi-plus-circle"></i>
-                New
-            </a>
-        </div>
-    </div>
+                <h3 class="fw-bold"> Shoe List</h3>
+            </div>
+
+            @if (isAdmin)
+            {
+                <div class="d-flex justify-content-end mb-3">
+
+                    <!--BTN NUEVO-->
+                    <a asp-controller="Shoe" asp-action="UpSert" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i>
+                        New
+                    </a>
+                </div>
+            }
+
+            <partial name="_SearchBar" model=Model />
+
+
 
     <!--TABLA-->
-    <table class="table table-bordered table-hover">
+    <table class="table table-bordered table-hover w-100">
 
         <!--ENCABEZADO DE LA TABLA-->
-        <thead>
-            <tr>
-                <th style="width:30%">Shoe</th>
-                <th style="width:30%">Brand</th>
-                <th style="width:40%">Actions</th>
+                <thead>
+                    <tr>
+                        <th class="text-center">Shoe</th>
+                        <th class="text-center">Brand</th>
+                        <th class="text-center">Price</th>
 
-            </tr>
+                        @if (isAdmin)
+                        {
+                            <th class="text-center">Actions</th>
 
-        </thead>
+                        }
+
+                    </tr>
+
+                </thead>
         <tbody>
             <!--SI HAY Shoes-->
-            @if (Model.Any())
+            @if (Model.Shoes.Any())
             {
-                foreach (var item in Model)
+                foreach (var item in Model.Shoes)
                 {
                     <!--se genera una fila para cada una-->
 
                     <tr id="@item.ShoeId">
                         <!--guardo el id, no se muestra-->
-                        <!--nombre de la brand-->
-                        <td>@item.ShoeName</td>
-                        <td>@item.BrandName</td>
+                                <!--nombre de la brand-->
+                                <td class ="text-center">@item.ShoeName</td>
+                                <td class ="text-center">@item.BrandName</td>
+                                <td class="text-center">@item.Price</td>
 
-                        <!--Ancor editar, porque le paso una ruta para la vista upsert de Brand-->
-                        <td>
-                            <a class="btn btn-warning" asp-controller="Shoe" asp-action="UpSert" asp-route-id="@item.ShoeId">
-                                <i class="bi bi-pencil-square"></i>&nbsp;Edit
-                            </a>
-                            <!--btn borrar con SWEETALERT, porque no necesito una vista-->
+                                @if (isAdmin)
+                                {
+                                    <td>
+                                        <a class="btn btn-warning" asp-controller="Shoe" asp-action="UpSert" asp-route-id="@item.ShoeId">
+                                            <i class="bi bi-pencil-square"></i>&nbsp;Edit
+                                        </a>
+                                        <!--btn borrar con SWEETALERT, porque no necesito una vista-->
 
 
-                            <button class="btn btn-danger" onclick="confirmDelete('@item.ShoeId')">
-                                <i class="bi bi-trash-fill"></i>&nbsp; Delete
-                            </button>
+                                        <button class="btn btn-danger" onclick="confirmDelete('@item.ShoeId')">
+                                            <i class="bi bi-trash-fill"></i>&nbsp; Delete
+                                        </button>
 
-                        </td>
-                    </tr>
+                                    </td>
+
+                                }
+                                <!--Ancor editar, porque le paso una ruta para la vista upsert de Brand-->
+                            </tr>
 
                 }
             }
@@ -93,14 +116,14 @@
 
                 <!--boton ANTERIOR-->
 
-                <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
-                    <a class="page-link" asp-action="Index" asp-route-page="@(Model.PageNumber - 1)">Previous</a>
+                <li class="page-item @(Model.Shoes.HasPreviousPage? "" : "disabled")">
+                    <a class="page-link" asp-action="Index" asp-route-page="@(Model.Shoes.PageNumber - 1)">Previous</a>
                 </li>
 
                 <!--NUMEROS DE PAGINAS-->
-                @for (int i = 1; i <= Model.PageCount; i++)   // GENERA 1 PAGINA POR CADA NUMERO EXISTENTE
+                @for (int i = 1; i <= Model.Shoes.PageCount; i++)   // GENERA 1 PAGINA POR CADA NUMERO EXISTENTE
                 {
-                    <li class=" page-item @(Model.PageNumber == i ? "active" : "")">
+                    <li class=" page-item @(Model.Shoes.PageNumber == i ? "active" : "")">
                         <!--RESALTA EL NRO DE LA PAG ACTUAL-->
                         <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
                     </li>
@@ -108,8 +131,8 @@
 
                 <!--BOTON NEXT-->
                 <!--genera un item de la lista q va a estar habilitado o deshabilitado-->
-                <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
-                    <a class="page-link " asp-action="Index" asp-route-page="@(Model.PageNumber + 1)"> NEXT</a>
+                <li class="page-item @(Model.Shoes.HasNextPage ? "" : "disabled")">
+                    <a class="page-link " asp-action="Index" asp-route-page="@(Model.Shoes.PageNumber + 1)"> NEXT</a>
 
                 </li>
 
@@ -118,6 +141,7 @@
         </nav>
     </div>
 
+        </div>
 
 </div>
 <!--RAZOR todo lo q esta ACA se va a insertar en la section del script del LAYOT (disposicion) -->

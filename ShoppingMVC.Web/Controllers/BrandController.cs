@@ -1,19 +1,25 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ShoppingMVC.Entidades;
 using ShoppingMVC.Servicios.Interfaces;
 using ShoppingMVC.Web.ViewModels.Brand;
+using System.ComponentModel.DataAnnotations;
+using System.Net;
 using X.PagedList.Extensions;
+
 
 namespace ShoppingMVC.Web.Controllers
 {
+    [Authorize]
     public class BrandController : Controller
     {
         //private readonly IWebHostEnvironment _webHostEnvironment; // entorno anfitrion -- para saber donde esta mi aplicacion en el servidor, la uso para guardar las imagenes
-        private readonly IServicioBrand? _service;
+        private readonly IServicioBrand _service;
         private readonly IMapper? _mapper;
 
-        public BrandController(IServicioBrand? service, IMapper? mapper)
+        public BrandController(IServicioBrand service, IMapper? mapper)
         {
             _service = service;
             _mapper = mapper;
@@ -21,18 +27,48 @@ namespace ShoppingMVC.Web.Controllers
         }
 
 
-        public IActionResult Index(int? page)
+        public IActionResult Index(int? page, string? search)
         {
+
             int pageNumber = page ?? 1;
             int pageSize = 6;
 
-            var brands = _service?.GetAll(orderBy: o => o.OrderBy(b => b.BrandName));
+           // ViewBag.search = search;
+            ViewBag.ResetUrl = Url.Action("Index");
 
-            var brandsVM = _mapper?.Map<List<BrandListVM>>(brands).ToPagedList(pageNumber, pageSize);
 
-            return View(brandsVM);
+           //var brands = _service.GetAll()
+           //     .Select(b => new SelectListItem  // using Rendering representa una opcion de un select
+           //     {
+           //         Text = b.BrandName,
+           //         Value = b.BrandId.ToString()
+
+           //     });
+
+
+           
+            var brands = _service.GetAll(
+                filter: !string.IsNullOrEmpty(search)
+                ? b => b.BrandName.ToLower().Contains(search.ToLower()) 
+                : null,
+              orderBy: o => o.OrderBy(b => b.BrandName)
+              );
+
+
+                var brandsVM = _mapper?
+                .Map<List<BrandListVM>>(brands)
+                .ToPagedList(pageNumber, pageSize);
+
+            var vm = new BrandIndexVM()
+            {
+                Brands= brandsVM,
+                Search=search
+               
+            };
+            return View(vm);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Delete(int? id)
         {
@@ -72,6 +108,7 @@ namespace ShoppingMVC.Web.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
 
         public IActionResult UpSert(int? id)
         {

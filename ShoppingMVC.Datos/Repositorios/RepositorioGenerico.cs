@@ -74,9 +74,6 @@ namespace ShoppingMVC.Datos.Repositorios
 
         } //operador ternario => CONDICION ? VALOR SI TRUE : VALOR SI FALSE 
 
-
-
-
         public IEnumerable<T> GetAll(
             Expression<Func<T, bool>>? filter = null, 
             Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, 

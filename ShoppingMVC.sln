@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingMVC.IoC", "Shopping
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingMVC.Web", "ShoppingMVC.Web\ShoppingMVC.Web.csproj", "{27D920DA-AE6E-4CBE-B982-4C5E81353CF3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingMVC.Utilities", "Utilities\ShoppingMVC.Utilities.csproj", "{AA13BC16-2C82-4214-B35D-5221F4033468}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{27D920DA-AE6E-4CBE-B982-4C5E81353CF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27D920DA-AE6E-4CBE-B982-4C5E81353CF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27D920DA-AE6E-4CBE-B982-4C5E81353CF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA13BC16-2C82-4214-B35D-5221F4033468}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA13BC16-2C82-4214-B35D-5221F4033468}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA13BC16-2C82-4214-B35D-5221F4033468}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA13BC16-2C82-4214-B35D-5221F4033468}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
