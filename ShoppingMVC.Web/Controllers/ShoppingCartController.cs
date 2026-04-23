@@ -89,5 +89,48 @@ namespace ShoppingMVC.Web.Controllers
             return RedirectToAction("Index");
 
         }
+
+        public IActionResult Minus(int shoeId)
+        {
+            ClaimsIdentity claimsIdenttity = (ClaimsIdentity)User.Identity!;
+
+            var userId = claimsIdenttity.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+
+            var carInDb = _serviceCart.Get(
+                filter: c => c.ApplicationUserId == userId && c.ShoeId == shoeId);
+
+
+            
+                carInDb!.Quantity -= 1; // resto un producto
+                _serviceCart.Save(carInDb);  // guardo cambios
+
+            if (carInDb.Quantity == 0)
+            {
+                _serviceCart.Delete(carInDb);
+            }
+            else
+            {
+                _serviceCart.Save(carInDb);
+            }
+
+                return RedirectToAction("Index");
+
+
+        }
+
+        public IActionResult Remove(int shoeId)
+        {
+            ClaimsIdentity claimsIdenttity = (ClaimsIdentity)User.Identity!;
+
+            var userId = claimsIdenttity.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+
+            var carInDb = _serviceCart.Get(
+                filter: c => c.ApplicationUserId == userId && c.ShoeId == shoeId);
+
+            _serviceCart.Delete(carInDb!);
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

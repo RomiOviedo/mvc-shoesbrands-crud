@@ -63,14 +63,14 @@
                                         <a class="btn btn-outline-primary bg-gradient py-2" asp-action="Add" asp-route-shoeId="@item.ShoeId">
                                         <i class="bg-info bi-plus-square"></i>
                                         </a>
-                                            <a class="btn btn-outline-primary bg-gradient py-2" asp-action="Minus" asp-route-id="@item.ShoppingCartId" asp-route-returnUrl="@ViewBag.ReturnUrl">
+                                            <a class="btn btn-outline-primary bg-gradient py-2" asp-action="Minus" asp-route-shoeId="@item.ShoeId" >
                                                 <i class="bi bi-dash-square"></i>
                                             </a>
                                     </div>
                                 </div>
 
                                     <div>
-                                        <a class="btn btn-danger bg-gradient py-2" asp-action="Remove" asp-route-id="@item.ShoppingCartId" asp-route-returnUrl="@ViewBag.ReturnUrl">
+                                        <a class="btn btn-danger bg-gradient py-2" asp-action="Remove" asp-route-shoeId="@item.ShoeId" >
                                             <i class="bi bi-trash-fill"></i>
                                         </a>
                                     </div>
