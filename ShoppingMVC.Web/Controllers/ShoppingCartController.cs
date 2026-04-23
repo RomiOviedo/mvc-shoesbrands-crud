@@ -61,8 +61,32 @@ namespace ShoppingMVC.Web.Controllers
             return total;
         }
 
-        public IActionResult Plus(int id, string? returnUrl = null)
+        public IActionResult Add(int shoeid)
         {
+            ClaimsIdentity claimsIdenttity = (ClaimsIdentity)User.Identity!;
+
+            var userId= claimsIdenttity.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+
+            var carInDb = _serviceCart.Get(
+                filter: c => c.ApplicationUserId ==  userId && c.ShoeId==shoeid);
+
+
+            if (carInDb != null) // ya existe este shoe agregado al carrito del user
+            {
+                carInDb.Quantity += 1; // sumo un producto
+                _serviceCart.Save(carInDb);  // guardo cambios
+            }
+            else
+            {
+                ShoppingCart cart = new ShoppingCart()  // carrito(item de ese shoe seleccionado) no existe, creo uno nuevo 
+                {
+                    ApplicationUserId = userId,
+                    ShoeId = shoeid,
+                    Quantity = 1
+                };
+                _serviceCart.Save(cart);
+            }
+            return RedirectToAction("Index");
 
         }
     }

@@ -21,9 +21,14 @@
     {
             <div class="card-body 8" style="background-color:darkgrey; color:antiquewhite">
                 <div class="row mb-3 pb-3">
-                        <div class="col-md-2 offset-md-1">
-                            <a href="@(ViewBag.ReturnUrl??Url.Action("Index", "Home")) class= "btn btn-outline-primary text-uppercase mb-5 btn-sm"><small>Continue Shopping</small></a> @*le indico la ruta*@
-                        </div>
+                        <div class="col-md-3 offset-md-1">
+                        <a class="btn btn-outline-primary w-100 py-2 d-flex align-items-center justify-content-center gap-2" 
+                        asp-controller="Shoe" 
+                        asp-action="Index">
+                        <i class="bi bi-arrow-lefy-circle"></i>
+                        <span>Continue Shopping</span>
+                        </a>
+                    </div>
                   <div class="col-md-10 offset-md-1">
                     @foreach (var item in Model.ShoppingCarts!)
                     {
@@ -55,7 +60,7 @@
                                         </h6>
                                     </div>
                                     <div class="btn-group" role="group">
-                                        <a class="btn btn-outline-primary bg-gradient py-2 asp-action="Plus" asp-route-id="@item.ShoppingCartId" asp-route-returnUrl="@ViewBag.ReturnUrl">
+                                        <a class="btn btn-outline-primary bg-gradient py-2" asp-action="Add" asp-route-shoeId="@item.ShoeId">
                                         <i class="bg-info bi-plus-square"></i>
                                         </a>
                                             <a class="btn btn-outline-primary bg-gradient py-2" asp-action="Minus" asp-route-id="@item.ShoppingCartId" asp-route-returnUrl="@ViewBag.ReturnUrl">
@@ -80,7 +85,7 @@
                                             <ul class="lust-group mb-4">
                                                 <li class="d-flex justity-content-between align-items-center">
                                                     <h5 class="fw-semibold text-uppercase"> TOTAL (USD)</h5>
-                                                    <4 class="fw-bolder">@Model.OrderHeader!.OrderTotal.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))</4>
+                                                    <h4 class="fw-bolder">@Model.OrderHeader!.OrderTotal.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))</h4>
                                                 </li>
                                             </ul>
                                         </div>
