@@ -87,7 +87,11 @@ This project uses:
 - Shoe Create/Edit Form  
 ![Shoe Create/Edit Form](screenshots/Shoe-Create_Edit-Form.png)
 
- 
+- Login (Identity)
+![Login](screenshots/Login.png)
+
+ - Register (Identity)
+![Login](screenshots/Register.png)
 
 ## 🚀 Future Improvements (planned)
 
