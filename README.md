@@ -27,6 +27,9 @@ It was built as a portfolio project to practice real MVC patterns, database rela
 - Repository pattern with optional filters and includes
 - `AsNoTracking()` used for read-only queries
 
+### 🔐 Authentication
+- User authentication implemented using ASP.NET Core Identity
+- Secure access to application features
 ---
 
 ## 🧠 Tech Stack
@@ -83,12 +86,28 @@ This project uses:
 
 - Shoe Create/Edit Form  
 ![Shoe Create/Edit Form](screenshots/Shoe-Create_Edit-Form.png)
- 
+
+- Login (Identity)
+![Login](screenshots/Login.PNG)
+
+ - Register (Identity)
+![Login](screenshots/Register.PNG)
 
 ## 🚀 Future Improvements (planned)
 
+This project is actively evolving.
+
+### ✔️ Implemented
+- Full CRUD for Brands and Shoes
+- Entity relationships with EF Core
+- Clean architecture (Repository + Service)
+- Authentication with ASP.NET Core Identity
+
+### 🔄 In Progress
+- Shopping cart functionality (currently under development)
+
+### 🔜 Planned
 - Stock management (by size and/or color)
-- Authentication and roles (Admin/User)
 - Search and filters
 - REST API endpoints
 
