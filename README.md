@@ -105,7 +105,7 @@ This project uses:
 ![Login](screenshots/Register.PNG)
 
  - Order Confirmed (Shopping Cart)
-![Order Confirmed](screenshots/OrderConfirmed.PNG)
+![Order Confirmed](screenshots/Order Confirmed.PNG)
 
 ## 🚀 Future Improvements (planned)
 
