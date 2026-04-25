@@ -24,7 +24,6 @@ namespace ShoppingMVC.IoC       // Inversion de Control
 
             servicios.AddScoped<IServicioBrand, ServicioBrand>();
 
-
             servicios.AddScoped<IRepositorioShoe, RepositorioShoe>();
             servicios.AddScoped<IServicioShoe, ServicioShoe>();
 
@@ -39,6 +38,8 @@ namespace ShoppingMVC.IoC       // Inversion de Control
             servicios.AddScoped<IRepositorioOrderDetail, RepositorioOrderDetail>();
             servicios.AddScoped<IServicioOrderDetail, ServicioOrderDetail>();
 
+            servicios.AddScoped<IRepositorioOrderHeader, RepositorioOrderHeader>();
+            servicios.AddScoped<IServicioOrderHeader, ServicioOrderHeader>();
 
 
 

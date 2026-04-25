@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,8 @@ namespace ShoppingMVC.Entidades
         public string LastName { get; set; } = null!;
         public string Address { get; set; } = null!;
         public List<OrderDetail> OrderDetail { get; set; } = new List<OrderDetail>();
-        public ApplicationUser ApplicationUser { get; set; }
+        //[ValidateNever]
+        public ApplicationUser? ApplicationUser { get; set; }
 
     }
 }
