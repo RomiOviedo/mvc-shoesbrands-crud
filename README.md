@@ -1,5 +1,5 @@
 # Shoes & Brands - ASP.NET Core MVC (CRUD)
-
+# Shopping Cart system (add, update, remove, checkout)
 
 This project is a simple but complete ASP.NET Core MVC application that implements CRUD operations for **Brands** and **Shoes**, using a clean architecture approach with **Repository + Service**, **Entity Framework Core**, **AutoMapper**, and a Bootstrap UI.
 
@@ -7,6 +7,17 @@ It was built as a portfolio project to practice real MVC patterns, database rela
 
 ---
 
+## 🧠 Tech Stack
+
+- ASP.NET Core MVC
+- Entity Framework Core
+- SQL Server
+- AutoMapper
+- Bootstrap
+- Repository Pattern + Service Layer
+- PagedList (pagination)
+
+---
 ## ✨ Features
 
 ### ✅ Brands Module (CRUD)
@@ -30,18 +41,18 @@ It was built as a portfolio project to practice real MVC patterns, database rela
 ### 🔐 Authentication
 - User authentication implemented using ASP.NET Core Identity
 - Secure access to application features
----
 
-## 🧠 Tech Stack
 
-- ASP.NET Core MVC
-- Entity Framework Core
-- SQL Server
-- AutoMapper
-- Bootstrap
-- Repository Pattern + Service Layer
-- PagedList (pagination)
+## 🛒 Shopping Cart Module
 
+This module includes a complete shopping flow:
+
+- Add products to the cart
+- Update product quantities
+- Display cart contents
+- Calculate total price with discounts
+- Order summary view
+- Order creation and confirmation
 ---
 
 ## 🗂️ Project Structure (high level)
@@ -93,6 +104,9 @@ This project uses:
  - Register (Identity)
 ![Login](screenshots/Register.PNG)
 
+ - Order Confirmed (Shopping Cart)
+![Order Confirmed](screenshots/OrderConfirmed.PNG)
+
 ## 🚀 Future Improvements (planned)
 
 This project is actively evolving.
@@ -104,7 +118,8 @@ This project is actively evolving.
 - Authentication with ASP.NET Core Identity
 
 ### 🔄 In Progress
-- Shopping cart functionality (currently under development)
+- UI improvements for shopping cart and checkout
+- Add product size management
 
 ### 🔜 Planned
 - Stock management (by size and/or color)
