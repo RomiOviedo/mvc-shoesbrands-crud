@@ -116,15 +116,13 @@ This project is actively evolving.
 - Entity relationships with EF Core
 - Clean architecture (Repository + Service)
 - Authentication with ASP.NET Core Identity
+- Shopping Cart
 
 ### 🔄 In Progress
-- UI improvements for shopping cart and checkout
 - Add product size management
 
 ### 🔜 Planned
 - Stock management (by size and/or color)
-- Search and filters
-- REST API endpoints
 
 ---
 
