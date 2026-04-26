@@ -18,9 +18,10 @@
 
     @if (Model.ShoppingCarts.Any()) // verifico tener productos en la lista
     {
-            <div class="card-body 8" style="background-color:darkgrey; color:antiquewhite">
+            <div class="card-body">
                 <div class="row mb-3 pb-3">
                         <div class="col-md-3 offset-md-1">
+
                         <a class="btn btn-outline-primary w-100 py-2 d-flex align-items-center justify-content-center gap-2" 
                         asp-controller="Shoe" 
                         asp-action="Index">
@@ -29,61 +30,65 @@
                         </a>
                     </div>
                   <div class="col-md-10 offset-md-1">
+
                     @foreach (var item in Model.ShoppingCarts!)
                     {
                             price = (item.Quantity == 1 ? item.Shoe.Price : item.Shoe.Price * 0.9m);
 
-                        <div class="row border-bottom pb-3">
-                                       @* <div class="row border-bottom pb-3">
-                                    aca iria la imagen
-                                  <img src="@(item.ShoeSize.Shoe.imageURL??"/images/d5085741-277d-4509-9ae9-d7e5421f4d70.jpg")" class="img-thumbnail" />@*Verifico si tiene imagen, sino le pongo una por defecto
-                                </div>*@
-                               
+                            <div class="row border-bottom py-3 align-items-center">
 
-                           <div class=" col-12 col-lg-6 pt-md-3">
-                                    <h5 class="text-uppercase text-secondary"><strong>@item.Shoe.ShoeName</strong></h5>
-                                    @*  <p>@item.Shoe.Brand.BrandName</p>
-                                     *@                                
-                                </div>
-                                <div class=" col-12 col-lg-5 d-flex justify-content-between align-items-center">
-                                  <div class="d-flex flex-column flex-md-row justify-content-md-around align-items-center w-100">
-                                    <div class="text-md-right">
-
-                                        <h6 class="fw-semibold">
-                                            @price.ToString("C",System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))
-                                            <span class="text-muted">&nbsp;x&nbsp;</span>@item.Quantity
-                                        </h6>
-                                    </div>
-                                    <div class="text-md-right">
-                                        <h6 class="fw-semibold">
-                                            @((price*item.Quantity).ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-US")))
-                                        </h6>
-                                    </div>
-                                    <div class="btn-group" role="group">
-                                        <a class="btn btn-outline-primary bg-gradient py-2" asp-action="Add" asp-route-shoeId="@item.ShoeId">
-                                        <i class="bg-info bi-plus-square"></i>
-                                        </a>
-                                            <a class="btn btn-outline-primary bg-gradient py-2" asp-action="Minus" asp-route-shoeId="@item.ShoeId" >
-                                                <i class="bi bi-dash-square"></i>
-                                            </a>
-                                    </div>
+                                <!-- NOMBRE -->
+                                <div class="col-lg-4">
+                                    <h6 class="mb-0 fw-bold">
+                                        @item.Shoe.ShoeName
+                                    </h6>
                                 </div>
 
-                                    <div>
-                                        <a class="btn btn-danger bg-gradient py-2" asp-action="Remove" asp-route-shoeId="@item.ShoeId" >
-                                            <i class="bi bi-trash-fill"></i>
-                                        </a>
-                                    </div>
-                           </div>                                
-                        </div>
+                                <!-- PRECIO x CANTIDAD -->
+                                <div class="col-lg-3 text-center">
+                                    <span>
+                                        @price.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))
+                                        × @item.Quantity
+                                    </span>
+                                </div>
+
+                                <!-- SUBTOTAL -->
+                                <div class="col-lg-2 text-center fw-bold">
+                                    @((price * item.Quantity).ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-US")))
+                                </div>
+
+                                <!-- BOTONES -->
+                                <div class="col-lg-3 d-flex justify-content-center gap-2">
+
+                                    <a class="btn btn-outline-secondary btn-sm"
+                                       asp-action="Add"
+                                       asp-route-shoeId="@item.ShoeId">
+                                        +
+                                    </a>
+
+                                    <a class="btn btn-outline-secondary btn-sm"
+                                       asp-action="Minus"
+                                       asp-route-shoeId="@item.ShoeId">
+                                        -
+                                    </a>
+
+                                    <a class="btn btn-danger btn-sm"
+                                       asp-action="Remove"
+                                       asp-route-shoeId="@item.ShoeId">
+                                        🗑
+                                    </a>
+
+                                </div>
+
+                            </div>
                     }
                     </div>
                 </div>
-                         <div class="card-footer border-0" style="background-color:forestgreen; color:#ffffff">
+                <div class="card-footer  bg-light">
                                     <div class="row">
                                         <div class="col-md-4 offset-md-4">
-                                            <ul class="lust-group mb-4">
-                                                <li class="d-flex justity-content-between align-items-center">
+                                            <ul class="list-group mb-4">
+                                                <li class="d-flex justify-content-between align-items-center">
                                                     <h5 class="fw-semibold text-uppercase"> TOTAL (USD)</h5>
                                                     <h4 class="fw-bolder">@Model.OrderHeader!.OrderTotal.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))</h4>
                                                 </li>
@@ -92,7 +97,11 @@
                                     </div>
                         <div class="row">
                             <div class="col-md-2 offset-md-5">
-                            <a asp-action="Summary" asp-route-returnUrl="@Context.Request.Path" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Summary</a>
+                            <a asp-action="Summary"
+                                asp-route-returnUrl="@Context.Request.Path" 
+                                class="btn btn-success btn-lg w-100">
+                                Checkout →
+                            </a>>
                             </div>
                         </div>
                 </div>

@@ -72,7 +72,7 @@ namespace ShoppingMVC.Web.Controllers
             return total;
         }
 
-        public IActionResult Add(int shoeid)
+        public IActionResult Add(int shoeid, string? returnUrl=null)
         {
             ClaimsIdentity claimsIdenttity = (ClaimsIdentity)User.Identity!;
 
@@ -97,7 +97,7 @@ namespace ShoppingMVC.Web.Controllers
                 };
                 _serviceCart.Save(cart);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { returnUrl = returnUrl });
 
         }
 

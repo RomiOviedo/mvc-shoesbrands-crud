@@ -76,6 +76,7 @@
                                     <a asp-controller="ShoppingCart"
                                         asp-action="Add"
                                        asp-route-shoeid="@item.ShoeId"
+                                       asp-route-returnUrl="@Context.Request.Path"
                                         class="btn btn-success btn-sm">
                                         <i class="bi bi-cart-plus"></i>  Add
                                     </a>
