@@ -37,10 +37,10 @@
 
 
 
-    <!--TABLA-->
-    <table class="table table-bordered table-hover w-100">
+            <!--TABLA-->
+            <table class="table table-bordered table-hover w-100">
 
-        <!--ENCABEZADO DE LA TABLA-->
+                <!--ENCABEZADO DE LA TABLA-->
                 <thead>
                     <tr>
                         <th class="text-center">Shoe</th>
@@ -58,33 +58,33 @@
                     </tr>
 
                 </thead>
-        <tbody>
-            <!--SI HAY Shoes-->
-            @if (Model.Shoes.Any())
-            {
-                foreach (var item in Model.Shoes)
-                {
-                    <!--se genera una fila para cada una-->
+                <tbody>
+                    <!--SI HAY Shoes-->
+                    @if (Model.Shoes.Any())
+                    {
+                        foreach (var item in Model.Shoes)
+                        {
+                            <!--se genera una fila para cada una-->
 
-                    <tr id="@item.ShoeId">
-                        <!--guardo el id, no se muestra-->
+                            <tr id="@item.ShoeId">
+                                <!--guardo el id, no se muestra-->
                                 <!--nombre de la brand-->
-                                <td class ="text-center">@item.ShoeName</td>
-                                <td class ="text-center">@item.BrandName</td>
+                                <td class="text-center">@item.ShoeName</td>
+                                <td class="text-center">@item.BrandName</td>
                                 <td class="text-center">@item.Price</td>
-                                <td>
+                                <td class="text-center">
                                     <a asp-controller="ShoppingCart"
-                                        asp-action="Add"
+                                       asp-action="Add"
                                        asp-route-shoeid="@item.ShoeId"
                                        asp-route-returnUrl="@Context.Request.Path"
-                                        class="btn btn-success btn-sm">
+                                       class="btn btn-success btn-sm">
                                         <i class="bi bi-cart-plus"></i>  Add
                                     </a>
-                                </td> 
+                                </td>
 
                                 @if (isAdmin)
                                 {
-                                    <td>
+                                    <td class="text-nowrap">
                                         <a class="btn btn-warning" asp-controller="Shoe" asp-action="UpSert" asp-route-id="@item.ShoeId">
                                             <i class="bi bi-pencil-square"></i>&nbsp;Edit
                                         </a>
@@ -101,59 +101,60 @@
                                 <!--Ancor editar, porque le paso una ruta para la vista upsert de Brand-->
                             </tr>
 
-                }
-            }
-            else
-            {
-                <tr>
-                    <td colspan="2" class="text-center">
-                        <!--colspan=2  las dos columnas se ahcen una , text centrado-->
-                        no shoes added yets!    <!--no se han añadido marcas-->
-                    </td>
-                </tr>
-            }
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="2" class="text-center">
+                                <!--colspan=2  las dos columnas se ahcen una , text centrado-->
+                                no shoes added yets!    <!--no se han añadido marcas-->
+                            </td>
+                        </tr>
+                    }
 
-        </tbody>
-    </table>
+                </tbody>
+            </table>
 
-    <!--PAGINACION MANUAL-->
+            <!--PAGINACION MANUAL-->
 
-    <div class="d-flex justify-content-center">
-        <!--d-flex= display flex || justify-content-center = contenido centrado horizontalmente -->
+            <div class="d-flex justify-content-center">
+                <!--d-flex= display flex || justify-content-center = contenido centrado horizontalmente -->
 
-        <nav aria-label="Page-navigation">
-            <!--le dice al navegador = esto es una zona de navegacion-->
-            <ul class="pagination">
+                <nav aria-label="Page-navigation">
+                    <!--le dice al navegador = esto es una zona de navegacion-->
+                    <ul class="pagination">
 
-                <!--boton ANTERIOR-->
+                        <!--boton ANTERIOR-->
 
-                <li class="page-item @(Model.Shoes.HasPreviousPage? "" : "disabled")">
-                    <a class="page-link" asp-action="Index" asp-route-page="@(Model.Shoes.PageNumber - 1)">Previous</a>
-                </li>
+                        <li class="page-item @(Model.Shoes.HasPreviousPage ? "" : "disabled")">
+                            <a class="page-link" asp-action="Index" asp-route-page="@(Model.Shoes.PageNumber - 1)">Previous</a>
+                        </li>
 
-                <!--NUMEROS DE PAGINAS-->
-                @for (int i = 1; i <= Model.Shoes.PageCount; i++)   // GENERA 1 PAGINA POR CADA NUMERO EXISTENTE
-                {
-                    <li class=" page-item @(Model.Shoes.PageNumber == i ? "active" : "")">
-                        <!--RESALTA EL NRO DE LA PAG ACTUAL-->
-                        <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
-                    </li>
-                }
+                        <!--NUMEROS DE PAGINAS-->
+                        @for (int i = 1; i <= Model.Shoes.PageCount; i++)   // GENERA 1 PAGINA POR CADA NUMERO EXISTENTE
+                        {
+                            <li class=" page-item @(Model.Shoes.PageNumber == i ? "active" : "")">
+                                <!--RESALTA EL NRO DE LA PAG ACTUAL-->
+                                <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                            </li>
+                        }
 
-                <!--BOTON NEXT-->
-                <!--genera un item de la lista q va a estar habilitado o deshabilitado-->
-                <li class="page-item @(Model.Shoes.HasNextPage ? "" : "disabled")">
-                    <a class="page-link " asp-action="Index" asp-route-page="@(Model.Shoes.PageNumber + 1)"> NEXT</a>
+                        <!--BOTON NEXT-->
+                        <!--genera un item de la lista q va a estar habilitado o deshabilitado-->
+                        <li class="page-item @(Model.Shoes.HasNextPage ? "" : "disabled")">
+                            <a class="page-link " asp-action="Index" asp-route-page="@(Model.Shoes.PageNumber + 1)"> NEXT</a>
 
-                </li>
+                        </li>
 
-            </ul>
+                    </ul>
 
-        </nav>
-    </div>
+                </nav>
+            </div>
 
         </div>
 
+    </div>
 </div>
 <!--RAZOR todo lo q esta ACA se va a insertar en la section del script del LAYOT (disposicion) -->
 @section Scripts{    
