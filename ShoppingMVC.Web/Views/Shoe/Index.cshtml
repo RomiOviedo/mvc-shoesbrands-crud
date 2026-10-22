@@ -13,9 +13,11 @@
     <div class="row mb-3">
 
         <!--Primer col -->
-        <div class="col-md-6 mx-auto">
-
+        <div class="col-md-8 mx-auto">
+            
             <!--titulo-->
+         
+
             <div class="text-center mb-3">
 
                 <h3 class="fw-bold"> Shoe List</h3>
@@ -38,15 +40,16 @@
 
 
             <!--TABLA-->
-            <table class="table table-bordered table-hover w-100">
+            <table class="table table-bordered table-hover w-100 align-middle">
 
                 <!--ENCABEZADO DE LA TABLA-->
                 <thead>
-                    <tr>
-                        <th class="text-center">Shoe</th>
-                        <th class="text-center">Brand</th>
-                        <th class="text-center">Price</th>
-                        <th class="text-center">Agregar al Carrito</th>
+                    <tr class="text-center align-middle">
+                        <th>Image</th>
+                        <th>Shoe</th>
+                        <th>Brand</th>
+                        <th>Price</th>
+                        <th>Add to cart</th>
 
 
                         @if (isAdmin)
@@ -66,9 +69,11 @@
                         {
                             <!--se genera una fila para cada una-->
 
-                            <tr id="@item.ShoeId">
+                            <tr id="@item.ShoeId" class="align-middle">
                                 <!--guardo el id, no se muestra-->
                                 <!--nombre de la brand-->
+                                <td class="text-center"><img src="@item.ImageUrl" alt="@item.ShoeName" class="imagen-zapatilla" /></td>
+
                                 <td class="text-center">@item.ShoeName</td>
                                 <td class="text-center">@item.BrandName</td>
                                 <td class="text-center">@item.Price</td>

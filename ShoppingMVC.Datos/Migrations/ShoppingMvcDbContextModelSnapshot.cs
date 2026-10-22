@@ -333,6 +333,9 @@ namespace ShoppingMVC.Datos.Migrations
                     b.Property<int>("BrandId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("Price")
                         .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");

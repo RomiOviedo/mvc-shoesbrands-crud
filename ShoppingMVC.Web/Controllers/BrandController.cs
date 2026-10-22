@@ -31,7 +31,7 @@ namespace ShoppingMVC.Web.Controllers
         {
 
             int pageNumber = page ?? 1;
-            int pageSize = 6;
+            int pageSize = 4;
 
            // ViewBag.search = search;
             ViewBag.ResetUrl = Url.Action("Index");

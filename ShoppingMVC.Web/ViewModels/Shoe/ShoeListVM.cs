@@ -13,6 +13,9 @@ namespace ShoppingMVC.Web.ViewModels.Shoe
 
         [DisplayName("Brand")]
         public string BrandName { get; set; }
+        [DisplayName("Image")]
+        public string? ImageUrl { get; set; }
+
 
 
     }

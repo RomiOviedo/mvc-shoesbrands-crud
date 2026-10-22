@@ -27,7 +27,7 @@ namespace ShoppingMVC.Web.Controllers
         public IActionResult Index(int? page, string? search, int? brandId)
         {
             int pageNumber = page ?? 1;
-            int pageSize = 6;
+            int pageSize = 2;
 
             ViewBag.ResetUrl = Url.Action("Index");
 
