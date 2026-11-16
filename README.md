@@ -1,136 +1,172 @@
-# Shoes & Brands - ASP.NET Core MVC (CRUD)
-# Shopping Cart system (add, update, remove, checkout)
+# 👟 Shoe-Brands
 
-This project is a simple but complete ASP.NET Core MVC application that implements CRUD operations for **Brands** and **Shoes**, using a clean architecture approach with **Repository + Service**, **Entity Framework Core**, **AutoMapper**, and a Bootstrap UI.
+### Tienda Online de Calzado | ASP.NET Core MVC
 
-It was built as a portfolio project to practice real MVC patterns, database relationships, view models, validation, and pagination.
+![Shoe-Brands](screenshots/Welcome.png)
 
 ---
 
-## 🧠 Tech Stack
+## 💡 Sobre el proyecto
 
+De aprender a construir.
+
+Shoe-Brands fue mi proyecto final de carrera, desarrollado como cierre de mi formación en Análisis, Desarrollo y Programación de Aplicaciones.
+
+El objetivo fue integrar los conocimientos adquiridos durante mis estudios en el desarrollo de una aplicación web completa, abarcando tanto la experiencia del usuario como la lógica del negocio.
+
+La aplicación simula una tienda online de calzado, donde los usuarios pueden explorar productos, filtrarlos por marca, talle y color, agregar artículos al carrito y realizar compras.
+
+También incorpora autenticación de usuarios y gestión de roles, con diferentes permisos para administradores y clientes.
+
+Más que una aplicación de gestión (CRUD), Shoe-Brands fue una oportunidad para llevar la teoría a la práctica y experimentar el proceso de desarrollo de una aplicación completa, desde el diseño de la base de datos hasta la interfaz de usuario
+
+---
+
+### Backend
+
+- C#
 - ASP.NET Core MVC
 - Entity Framework Core
 - SQL Server
+
+### Arquitectura y herramientas
+
+- Repository Pattern
+- Service Layer
 - AutoMapper
+- Inyección de dependencias (DI)
+
+### Frontend
+
+- HTML5
+- CSS3
+- JavaScript
 - Bootstrap
-- Repository Pattern + Service Layer
-- PagedList (pagination)
 
----
-## ✨ Features
+### Autenticación y seguridad
 
-### ✅ Brands Module (CRUD)
-- Create, edit, list and delete brands
-- Validation and duplicate record checks
-- User-friendly messages
-
-### ✅ Shoes Module (CRUD)
-- Create, edit, list and delete shoes
-- Shoes are linked to a Brand (FK relationship)
-- Brand names are displayed using EF Core `Include`
-
-### ✅ General
-- Pagination in listing views
-- Bootstrap UI (clean and readable)
-- Server-side validation with Data Annotations
-- Proper error handling (`NotFound`, `ModelState`, etc.)
-- Repository pattern with optional filters and includes
-- `AsNoTracking()` used for read-only queries
-
-### 🔐 Authentication
-- User authentication implemented using ASP.NET Core Identity
-- Secure access to application features
-
-
-## 🛒 Shopping Cart Module
-
-This module includes a complete shopping flow:
-
-- Add products to the cart
-- Update product quantities
-- Display cart contents
-- Calculate total price with discounts
-- Order summary view
-- Order creation and confirmation
----
-
-## 🗂️ Project Structure (high level)
-
-- **Controllers** → Handle HTTP requests and view flow  
-- **Services** → Business logic and validations  
-- **Repository** → Data access layer (EF Core)  
-- **Entities/Models** → Database entities (Brand, Shoe)  
-- **ViewModels** → Models used by the views (Edit/List)  
-- **Mapping Profiles** → AutoMapper configuration  
+- ASP.NET Core Identity
+- Autorización basada en roles
 
 ---
 
-## 🔍 Notes about EF Core (Include & AsNoTracking)
+## ✨ Funcionalidades
 
-This project uses:
+### 🏷️ Módulo de Marcas (CRUD)
 
-- `Include("Brand")` to load navigation properties and display Brand names in the Shoe list.
-- `AsNoTracking()` for better performance on listing queries.
+- Crear, editar, listar y eliminar marcas.
+- Validaciones y control de registros duplicados.
+- Mensajes informativos para el usuario.
+
+### 👟 Módulo de Calzado (CRUD)
+
+- Crear, editar, listar y eliminar productos.
+- Relación entre calzado y marca mediante clave foránea (FK).
+- Visualización del nombre de la marca utilizando `Include` de Entity Framework Core.
+
+### ⚙️ Funcionalidades generales
+
+- Paginación en las vistas de listado.
+- Interfaz desarrollada con Bootstrap.
+- Validaciones del lado del servidor mediante Data Annotations.
+- Manejo de errores y respuestas adecuadas (`NotFound`, `ModelState`, entre otros).
+- Repository Pattern con soporte para filtros e inclusión de relaciones.
+- Uso de `AsNoTracking()` para consultas de solo lectura.
+
+### 🔐 Autenticación y autorización
+
+- Autenticación de usuarios mediante ASP.NET Core Identity.
+- Registro e inicio de sesión.
+- Gestión de roles y permisos.
+- Acceso diferenciado según el tipo de usuario.
+
+### 🛒 Módulo de carrito de compras
+
+- Agregar productos al carrito.
+- Modificar las cantidades de los productos.
+- Visualizar el contenido del carrito.
+- Calcular el precio total aplicando descuentos.
+- Visualizar el resumen de la compra.
+- Generar y confirmar pedidos.
 
 ---
 
-## ▶️ How to Run Locally
+## 🗂️ Estructura del proyecto
 
-1. Clone the repository
-2. Open the solution in Visual Studio
-3. Update the SQL Server connection string in:
+- **Controllers:** gestionan las solicitudes HTTP y el flujo de navegación.
+- **Services:** contienen la lógica de negocio y las validaciones.
+- **Repository:** se encarga del acceso a datos mediante Entity Framework Core.
+- **Entities / Models:** representan las entidades del sistema, como Brand y Shoe.
+- **ViewModels:** contienen los modelos utilizados por las vistas.
+- **Mapping Profiles:** configuran las correspondencias entre objetos mediante AutoMapper.
+
+---
+
+## 🔍 Detalles de implementación con Entity Framework Core
+
+- `Include("Brand")`: permite cargar las propiedades de navegación y mostrar los nombres de las marcas en el listado de calzado.
+- `AsNoTracking()`: se utiliza en consultas de solo lectura para evitar el seguimiento de cambios y mejorar el rendimiento.
+
+---
+
+## ▶️ Cómo ejecutar el proyecto
+
+1. Clonar el repositorio.
+2. Abrir la solución en Visual Studio.
+3. Configurar la cadena de conexión de SQL Server en:
    - `appsettings.json` → `ConnectionStrings:MyConnection`
-4. Apply migrations:
+4. Aplicar las migraciones de Entity Framework Core:
    - `Update-Database`
-5. Run the project (IIS Express or Kestrel)
+5. Ejecutar el proyecto utilizando IIS Express o Kestrel.
 
 ---
 
-## 📸 Screenshots
+## 📸 Galería de imágenes
 
-- Brands List  
-![Brand List](screenshots/BrandList.png)
+- Listado de Marcas
+  ![Brand List](screenshots/BrandList.png)
 
-- Shoes List (with Brand Name)  
-![Shoe List](screenshots/ShoesList.png)
+- Listado de Calzado - Usuarios
+  ![Shoe List](screenshots/ShoesList.png)
+  - Listado de Calzado - Admin
+    ![Shoe List](screenshots/ShoesListAdmin.png)
 
-- Shoe Create/Edit Form  
-![Shoe Create/Edit Form](screenshots/Shoe-Create_Edit-Form.png)
+- Formulario de creación y edicion de calzado  
+  ![Shoe Create/Edit Form](screenshots/Shoe-Create_Edit-Form.png)
 
-- Login (Identity)
-![Login](screenshots/Login.PNG)
+- Inicio de sesión
+  ![Login](screenshots/Login.PNG)
 
- - Register (Identity)
-![Login](screenshots/Register.PNG)
+- Registro de usuario
+  ![Login](screenshots/Register.PNG)
 
- - Order Confirmed (Shopping Cart)
-![Order Confirmed](screenshots/Order_Confirmed.PNG)
+- Confirmación de pedido
+  ![Order Confirmed](screenshots/Order_Confirmed.PNG)
 
-## 🚀 Future Improvements (planned)
+## 🚀 Mejoras y próximas funcionalidades
 
-This project is actively evolving.
+### ✔️ Implementado
 
-### ✔️ Implemented
-- Full CRUD for Brands and Shoes
-- Entity relationships with EF Core
-- Clean architecture (Repository + Service)
-- Authentication with ASP.NET Core Identity
-- Shopping Cart
+- CRUD completo de marcas y productos.
+- Relaciones entre entidades mediante Entity Framework Core.
+- Arquitectura Repository + Service.
+- Autenticación mediante ASP.NET Core Identity.
+- Carrito de compras.
 
-### 🔄 In Progress
-- Add product size management
+### 🔄 En desarrollo
 
-### 🔜 Planned
-- Stock management (by size and/or color)
+- Incorporación de gestión de talles para los productos.
+
+### 🔜 Próximas mejoras
+
+- Gestión de stock por talle y/o color.
 
 ---
 
-## 👤 Author
+## 👩‍💻 Autora
 
 **Romina Oviedo**  
-Técnica en Análisis, Desarrollo y Programación de Aplicaciones 
-Focused on building clean, maintainable software with both technical and human quality.
+Interesada en el desarrollo de software mantenible,
+con atención tanto a la calidad técnica como a la experiencia de usuario.
 
 - LinkedIn: www.linkedin.com/in/romina-oviedo-1b24bb2a3
-- GitHub: https://github.com/RomiOviedo/MVC-ShoesBrands-CRUD.git
