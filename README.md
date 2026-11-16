@@ -127,9 +127,9 @@ Más que una aplicación de gestión (CRUD), Shoe-Brands fue una oportunidad par
   ![Brand List](screenshots/BrandList.png)
 
 - Listado de Calzado - Usuarios
-  ![Shoe List](screenshots/ShoesList.PNG)
+  ![Shoe List](screenshots/ShoeList.png)
   - Listado de Calzado - Admin
-    ![Shoe List](screenshots/ShoesListAdmin.PNG)
+    ![Shoe List](screenshots/ShoesListAdimin.PNG)
 
 - Formulario de creación y edicion de calzado  
   ![Shoe Create/Edit Form](screenshots/Shoe-Create_Edit-Form.png)
