@@ -10,7 +10,7 @@ using X.PagedList.Extensions;
 
 namespace ShoppingMVC.Web.Controllers
 {
-    [Authorize] // solo usuarios registrados pueden ingresar
+    // [Authorize] // solo usuarios registrados pueden ingresar. comentado para que cualquier usuario pueda ingresar y ver los shoes, para realizar la compra si tiene q registrarse 
 
     public class ShoeController : Controller
     {
@@ -40,10 +40,6 @@ namespace ShoppingMVC.Web.Controllers
                 });
 
 
-            //var shoes = _service.GetAll(filtro:!string.IsNullOrEmpty(search)
-            //    ? s=>s.ShoeName.Contains(search.ToLower()) || s.Brand.BrandName.Contains(search.ToLower())
-            //    :null,
-            //    orderBy: o => o.OrderBy(s => s.ShoeName), propertiesNames: "Brand"); 
 
 
             var shoes = _service.GetAll(

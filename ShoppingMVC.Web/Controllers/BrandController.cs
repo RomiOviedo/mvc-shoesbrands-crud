@@ -12,7 +12,7 @@ using X.PagedList.Extensions;
 
 namespace ShoppingMVC.Web.Controllers
 {
-    [Authorize]
+    // [Authorize] comento para que cualquier usuario pueda ingresar y ver las marcas, para realizar la compra si tiene q registrarse
     public class BrandController : Controller
     {
         //private readonly IWebHostEnvironment _webHostEnvironment; // entorno anfitrion -- para saber donde esta mi aplicacion en el servidor, la uso para guardar las imagenes
@@ -33,37 +33,27 @@ namespace ShoppingMVC.Web.Controllers
             int pageNumber = page ?? 1;
             int pageSize = 4;
 
-           // ViewBag.search = search;
             ViewBag.ResetUrl = Url.Action("Index");
 
 
-           //var brands = _service.GetAll()
-           //     .Select(b => new SelectListItem  // using Rendering representa una opcion de un select
-           //     {
-           //         Text = b.BrandName,
-           //         Value = b.BrandId.ToString()
 
-           //     });
-
-
-           
             var brands = _service.GetAll(
                 filter: !string.IsNullOrEmpty(search)
-                ? b => b.BrandName.ToLower().Contains(search.ToLower()) 
+                ? b => b.BrandName.ToLower().Contains(search.ToLower())
                 : null,
               orderBy: o => o.OrderBy(b => b.BrandName)
               );
 
 
-                var brandsVM = _mapper?
-                .Map<List<BrandListVM>>(brands)
-                .ToPagedList(pageNumber, pageSize);
+            var brandsVM = _mapper?
+            .Map<List<BrandListVM>>(brands)
+            .ToPagedList(pageNumber, pageSize);
 
             var vm = new BrandIndexVM()
             {
-                Brands= brandsVM,
-                Search=search
-               
+                Brands = brandsVM,
+                Search = search
+
             };
             return View(vm);
         }
@@ -87,7 +77,7 @@ namespace ShoppingMVC.Web.Controllers
 
             try
             {
-                if (_service== null || _mapper==null)
+                if (_service == null || _mapper == null)
                 {
                     return StatusCode(StatusCodes.Status500InternalServerError, "Dependecncias no configuradas correctamnete");
                 }
@@ -173,7 +163,7 @@ namespace ShoppingMVC.Web.Controllers
                 TempData["success"] = "record added/edited successfully !";
 
 
-                return RedirectToAction("Index"); // vuelve a la vista index, da error de no todas las rutas devuelven un valor
+                return RedirectToAction("Index"); // vuelve a la vista index.
             }
 
             catch (Exception)
